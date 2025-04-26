@@ -36,7 +36,7 @@ const testimonials = [
     
     <div class="testimonial-slider">
       {testimonials.map((testimonial, index) => (
-        <div class="testimonial-card card" data-index={index}>
+        <div class="testimonial-card" data-index={index}>
           <div class="testimonial-content">
             <div class="quote-icon">
               <i class="fas fa-quote-left"></i>
@@ -103,6 +103,11 @@ const testimonials = [
     height: auto;
     display: flex;
     flex-direction: column;
+    background: var(--gradient-card);
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    padding: 2.5rem;
+    border: 1px solid rgba(224, 211, 245, 0.5);
   }
 
   .testimonial-card[data-index="0"] {

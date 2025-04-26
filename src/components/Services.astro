@@ -225,15 +225,16 @@ const services = [
   }
 
   .cta-container .btn {
-    background-color: var(--text-light);
-    color: var(--primary);
+    background: var(--gradient-secondary);
+    color: var(--primary-dark);
     position: relative;
     z-index: 1;
+    font-weight: 600;
   }
 
   .cta-container .btn:hover {
-    background-color: var(--primary-dark);
-    color: var(--text-light);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 207, 92, 0.4);
   }
 
   @keyframes fadeInUp {

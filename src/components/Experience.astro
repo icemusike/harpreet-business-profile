@@ -68,7 +68,7 @@ const skills = [
                 <span class="skill-percentage">{skill.percentage}%</span>
               </div>
               <div class="skill-bar">
-                <div class="skill-progress" style={`width: ${skill.percentage}%`}></div>
+                <div class="skill-progress" data-percentage={skill.percentage}></div>
               </div>
             </div>
           ))}
@@ -92,8 +92,8 @@ const skills = [
   .timeline, .skills {
     padding: 2rem;
     background-color: var(--card-bg);
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
   }
 
   .timeline h3, .skills h3 {
@@ -110,7 +110,8 @@ const skills = [
     bottom: 0;
     width: 50px;
     height: 3px;
-    background-color: var(--primary);
+    background: var(--gradient-primary);
+    border-radius: 3px;
   }
 
   .timeline-item {
@@ -198,9 +199,10 @@ const skills = [
 
   .skill-progress {
     height: 100%;
+    width: 0; /* Start at 0 for animation */
     background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
     border-radius: 5px;
-    transition: width 1.5s ease-in-out;
+    transition: width 1.5s cubic-bezier(0.1, 0.45, 0.1, 1);
   }
 
   @media (max-width: 992px) {
@@ -218,22 +220,17 @@ const skills = [
   document.addEventListener('DOMContentLoaded', () => {
     const skillBars = document.querySelectorAll('.skill-progress');
     
-    // Reset width to 0 initially
-    skillBars.forEach(bar => {
-      bar.style.width = '0';
-    });
-    
     // Create an intersection observer
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           // When skills section is visible, animate the bars
-          setTimeout(() => {
-            skillBars.forEach(bar => {
-              const width = bar.getAttribute('style').split(':')[1].trim();
-              bar.style.width = width;
-            });
-          }, 200);
+          skillBars.forEach(bar => {
+            const percentage = bar.getAttribute('data-percentage');
+            setTimeout(() => {
+              bar.style.width = percentage + '%';
+            }, 200);
+          });
           
           // Unobserve after animation
           observer.unobserve(entry.target);
